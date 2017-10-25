@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<title> Therobot Animation Creator </title>
+
+        <link rel="stylesheet" type="text/css" href="libs/css/uikit.min.css" />
+        <link rel="stylesheet" type="text/css" href="libs/css/custom.css" />
+	</head>
+	<body>
+
+		<script src="libs/js/jquery-3.2.1.min.js"></script>
+		<script src="libs/js/uikit.min.js"></script>
+		<script src="libs/js/uikit-icons.min.js"></script>
+
+        <div class="uk-offcanvas-content">
+            <!-- The whole page content goes here -->
+			<div class="uk-width-1-1">
+				<div class="uk-grid-collapse" uk-grid>
+
+					<div id="viewport-container" class="viewport-container uk-width-5-6">
+						<a class="uk-icon-button sidebar-button"  uk-icon="icon: list; ratio: 1; color: red;" uk-toggle="target: #offcanvas-left"></a>
+						<!--<canvas  id="viewport" width="1000" height="600"></canvas>-->
+					</div>
+
+					<div class="uk-width-1-6 uk-background-muted">
+						<div id=" treakbar-container" class="tweakbar">
+							<h2>Tweak Bar</h2>
+							<p>Slider Controls help to provide the ability for percise adjustments of motor commands.</p>
+							<input id="angle-slider" type="range" min="-180" max="180" step="1" value="0" data-rangeslider=""> Position
+						</div>
+					</div>
+
+		        </div>
+
+				<div id="timeline-container"></div>
+
+				<!-- Off-canvas Left -->
+				<div id="offcanvas-left" uk-offcanvas="">
+					<div id="sidebar-container" class="uk-offcanvas-bar"></div>
+				</div>
+			</div>
+
+		</div>
+
+    	<!--<script src="file.js"></script>-->
+
+	</body>
+</html>
