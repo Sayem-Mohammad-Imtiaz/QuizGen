@@ -3,7 +3,7 @@ package com.group1.QuizGen.controller.site;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+@Controller("site")
 public class SiteController {
 
     @GetMapping("/")
@@ -11,4 +11,5 @@ public class SiteController {
     {
         return "index";
     }
+
 }
