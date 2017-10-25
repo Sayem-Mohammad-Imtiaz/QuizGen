@@ -23,6 +23,7 @@ CREATE TABLE Chapters_Questions (
 	chapter_ID varchar(6),
 	question_ID varchar(3),
 	PRIMARY KEY (chapter_ID, question_ID)
+	FOREIGN KEY (chapter_ID, question_ID) REFERENCES (Chapters, Questions)
 );
 
 CREATE TABLE Quizzes (
@@ -36,4 +37,5 @@ CREATE TABLE Questions_Answers (
 	question_ID varchar(6),
 	answer_ID varchar(8),
 	PRIMARY KEY (question_ID, answer_ID)
+	FOREIGN KEY (question_ID, answer_ID) REFERENCES (Questions, Answers)
 );
