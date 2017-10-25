@@ -1,0 +1,41 @@
+CREATE TABLE Chapters (
+	chapter_ID varchar(3) NOT NULL,
+	number_questions int,
+	PRIMARY KEY (chapter_ID)
+);
+
+CREATE TABLE Questions (
+	question_ID varchar(6),
+	question_text varchar(512),
+	number_choices int,
+	PRIMARY KEY (question_ID)
+);
+
+CREATE TABLE Answers (
+	answer_ID varchar(8),
+	answer_text varchar(512),
+	fixed_slot int,
+	is_correct int,
+	PRIMARY KEY (answer_ID)
+);
+	
+CREATE TABLE Chapters_Questions (
+	chapter_ID varchar(6),
+	question_ID varchar(3),
+	PRIMARY KEY (chapter_ID, question_ID)
+	FOREIGN KEY (chapter_ID, question_ID) REFERENCES (Chapters, Questions)
+);
+
+CREATE TABLE Quizzes (
+	quiz_ID varchar(255),
+	quiz_param varchar(255),
+	quiz_stats varchar(255),
+	PRIMARY KEY (quiz_ID)
+);		
+
+CREATE TABLE Questions_Answers (
+	question_ID varchar(6),
+	answer_ID varchar(8),
+	PRIMARY KEY (question_ID, answer_ID)
+	FOREIGN KEY (question_ID, answer_ID) REFERENCES (Questions, Answers)
+);
