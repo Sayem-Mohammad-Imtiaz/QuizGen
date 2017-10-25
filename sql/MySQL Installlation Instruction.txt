@@ -1,0 +1,31 @@
+Step 1: create my.ini with
+	[mysqld]
+	# set basedir to your installation path
+	basedir=C:\mysql-5.7.19
+	# set datadir to the location of your data directory
+	datadir=C:\mysql-5.7.19\data
+
+Step 2: run from mysql bin folder: mysqld --intialize
+
+Step 3: install mysl as service with mysqld --install
+
+Step 4: follow below steps:
+
+	1.Stop your MySQL server completely. This can be done by accessing the Services window inside Windows XP and Windows Server 2003, where you can stop the MySQL service.
+	2.Open your MS-DOS command prompt using "cmd" inside the Run window. Inside it navigate to your MySQL bin folder, such as C:\MySQL\bin using the cd command.
+	3. Execute the following command in the command prompt: mysqld.exe -u root --skip-grant-tables
+	4. Leave the current MS-DOS command prompt as it is, and open a new MS-DOS command prompt window.
+	5. Navigate to your MySQL bin folder, such as C:\MySQL\bin using the cd command.
+	6. Enter mysql and press enter.
+	7. You should now have the MySQL command prompt working. Type use mysql; so that we switch to the "mysql" database.
+	8. Execute the following command to update the password:
+	   UPDATE user SET authentication_string = PASSWORD('root') WHERE User = 'root'
+	9. flush privileges
+	
+Step 5: start service and login with root
+step 6: ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
+step 7: flush privileges;
+step 8: create database quizgendb;
+step 9: create user 'quizgen'@'localhost' identified by 'quizgen';
+step 10: grant all on quizgendb.* to 'quizgen'@'localhost';
+step 11: FLUSH PRIVILEGES;
