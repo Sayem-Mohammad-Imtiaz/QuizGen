@@ -1,4 +1,4 @@
-package com.group1.QuizGen;
+package com.group1.quizgen;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

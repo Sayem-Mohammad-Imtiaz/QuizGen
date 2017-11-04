@@ -1,6 +1,6 @@
-package com.group1.QuizGen.controller.rest;
+package com.group1.quizgen.controller.rest;
 
-import com.group1.QuizGen.model.Quiz;
+import com.group1.quizgen.model.Quiz;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +14,7 @@ public class QuizController {
     public Quiz getQuiz(@RequestParam Integer questionNo)
     {
         Quiz q=new Quiz();
-        q.setQuizName("You have requested "+questionNo+" questions");
+        q.setQuizID("You have requested "+questionNo+" questions");
         return q;
     }
 }

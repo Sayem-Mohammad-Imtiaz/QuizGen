@@ -1,4 +1,4 @@
-package com.group1.QuizGen;
+package com.group1.quizgen;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
