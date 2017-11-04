@@ -20,6 +20,14 @@ CREATE TABLE Answers (
 	question_ID varchar(6),
 	PRIMARY KEY (answer_ID)
 );
+CREATE TABLE Quizzes (
+	quiz_ID varchar(255),
+	quiz_param varchar(255),
+	quiz_stats varchar(255),
+	PRIMARY KEY (quiz_ID)
+);
+
+/* below tables are not necessary really */
 	
 CREATE TABLE Chapters_Questions (
 	chapter_ID varchar(6),
@@ -28,12 +36,7 @@ CREATE TABLE Chapters_Questions (
 	FOREIGN KEY (chapter_ID, question_ID) REFERENCES (Chapters, Questions)
 );
 
-CREATE TABLE Quizzes (
-	quiz_ID varchar(255),
-	quiz_param varchar(255),
-	quiz_stats varchar(255),
-	PRIMARY KEY (quiz_ID)
-);		
+		
 
 CREATE TABLE Questions_Answers (
 	question_ID varchar(6),
