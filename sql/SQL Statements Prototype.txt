@@ -16,6 +16,7 @@ CREATE TABLE Answers (
 	answer_text varchar(512),
 	fixed_slot int,
 	is_correct int,
+	question_ID varchar(6),
 	PRIMARY KEY (answer_ID)
 );
 	
