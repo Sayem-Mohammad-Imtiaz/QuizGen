@@ -8,6 +8,7 @@ CREATE TABLE Questions (
 	question_ID varchar(6),
 	question_text varchar(512),
 	number_choices int,
+	chapter_ID varchar(3),
 	PRIMARY KEY (question_ID)
 );
 
