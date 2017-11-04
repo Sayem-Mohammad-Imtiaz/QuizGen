@@ -1,9 +1,7 @@
 package com.group1.quizgen.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Chapters")
@@ -13,6 +11,17 @@ public class Chapter {
     private String chapterID;
     @Column(name = "number_questions")
     private Integer numQuestions;
+
+    @OneToMany(mappedBy = "chapter")
+    private List<Question> questions;
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
 
     public String getChapterID() {
         return chapterID;

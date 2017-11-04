@@ -1,13 +1,10 @@
 package com.group1.quizgen.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Answers")
-public class Answer {
+public class Option {
     @Id
     @Column(name="answer_ID")
     private String answerID;
@@ -20,6 +17,18 @@ public class Answer {
 
     @Column(name = "is_correct")
     private boolean isCorrect;
+
+    @ManyToOne
+    @JoinColumn(name = "question_ID")
+    private Question question;
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 
     public String getAnswerID() {
         return answerID;

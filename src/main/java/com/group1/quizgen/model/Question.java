@@ -1,6 +1,7 @@
 package com.group1.quizgen.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Questions")
@@ -14,6 +15,21 @@ public class Question {
 
     @Column(name = "number_choices")
     private Integer numberChoices;
+
+    @OneToMany(mappedBy="question")
+    private List<Option> options;
+
+    @ManyToOne
+    @JoinColumn(name = "chapter_ID")
+    private Chapter chapter;
+
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Option> options) {
+        this.options = options;
+    }
 
     public String getQuestionID() {
         return questionID;
