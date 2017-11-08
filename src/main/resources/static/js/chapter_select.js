@@ -1,3 +1,5 @@
+var chapters = ["Chapter 1","Chapter 2","Chapter 3", "Chapter 4"]
+
 $(document.body).on('mousedown', '#cb1', function(event){
 	chapter1_selected(event);
 })

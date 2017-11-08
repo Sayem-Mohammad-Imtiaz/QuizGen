@@ -15,20 +15,20 @@
 		<script src="../static/js/chapter_select.js"></script>
 		
 		<div>
-			<ul id="chapterlist" class="uk-list uk-list-divider">
-				<li><h3>Chapter 1</h3>
-					<div class="uk-child-width-1-3" uk-grid><input class="uk-input" type="number" min="1" max="7" placeholder="Questions from chapter."></div>
-					<div class="uk-first-column"
-					<p class="uk-text-muted uk-first-column"><input id="cb1" class="uk-checkbox" type="checkbox">Use Chapter</p></div>
-				</li>
-				<li id="ch2"class="chapter"><h3>Chapter 2</h3>
-					<div class="uk-child-width-1-3" uk-grid><input class="uk-input" type="number" min="1" max="7" placeholder="Questions from chapter."></div>
-					<div class="uk-first-column"
-					<p class="uk-text-muted uk-first-column"><input id="cb2" class="uk-checkbox" type="checkbox">Use Chapter</p></div>
-				</li>
-				<li id="ch3"class="chapter"><h3>Chapter 3</h3>
-					<div class="uk-child-width-1-3" uk-grid><input class="uk-input" type="number" min="1" max="7" placeholder="Questions from chapter."></div>
-					<div class="uk-first-column"
-					<p class="uk-text-muted uk-first-column"><input id="cb3" class="uk-checkbox" type="checkbox">Use Chapter</p></div>
-				</li>
+			<h1 class="uk-heading-line uk-text-center"><span>QuizGEN Online</span></h1>
+
+			<ul id="chapterlist" class="uk-margin-left uk-list uk-list-divider">
+				<li class="uk-margin-medium-left"><form class="uk-grid-margin" uk-grid>
+					<legend class="uk-legend">Select a chapter.</legend>			
+					<select id="Select1"class="uk-select uk-width-1-3">
+						<option id="Chapter 1">Chapter 1</option>
+						<option id="Chapter 2">Chapter 2</option>
+						<option id="Chapter 3">Chapter 3</option>
+						<option id="Chapter 4">Chapter 4</option>
+					</select>
+					<div class="uk-width-2-3"></div>
+					<input class="uk-input uk-width-1-3" type="number" min="1" max="7" placeholder="Questions from chapter.">
+					<div class="uk-width-2-3"></div>
+					<p class="uk-text-muted"><input id="cb1" class="uk-checkbox" type="checkbox">Add Chapter</p>
+				</form></li>
 		</div>
