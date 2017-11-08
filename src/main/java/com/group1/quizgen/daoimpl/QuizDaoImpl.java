@@ -5,6 +5,7 @@ import com.group1.quizgen.model.Chapter;
 import com.group1.quizgen.model.Question;
 import com.group1.quizgen.model.Quiz;
 import org.springframework.stereotype.Repository;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -24,6 +25,11 @@ public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
     @Override
     public Question findQuestionById(String questionID) {
         return entityManager.find(Question.class, questionID);
+    }
+
+    public List<Question> getRandomQuestions(int numQuestions)
+    {
+        throw new NotImplementedException();
     }
 
     @Override
