@@ -6,8 +6,15 @@ import com.group1.quizgen.model.Question;
 import com.group1.quizgen.model.Quiz;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
+
+    @Override
+    public List<Chapter> findAllChapter() {
+        return entityManager.createQuery("select c from Chapter c").getResultList();
+    }
 
     @Override
     public Chapter findChapterById(String chapterID) {

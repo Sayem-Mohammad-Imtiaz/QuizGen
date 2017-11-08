@@ -5,9 +5,11 @@ import com.group1.quizgen.model.Question;
 import com.group1.quizgen.model.Quiz;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 public interface QuizDao {
+    List<Chapter> findAllChapter();
     Chapter findChapterById(String chapterID);
     Question findQuestionById(String questionID);
     Quiz findQuizById(String quizID);
