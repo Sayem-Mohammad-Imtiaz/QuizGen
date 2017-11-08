@@ -1,0 +1,66 @@
+Get all questions from a chapter (intended to create a question object).
+
+'SELECT * FROM Questions 
+WHERE chapter_ID = $chapter_ID';
+
+Get a quiz from the database
+
+'SELECT quiz_param FROM Quizzes
+WHERE quiz_ID = $quizID';
+
+Get answers to a question (to be added to the object)
+
+'SELELCT * FROM Answers
+WHERE question_ID = $question_ID';
+
+Get statistics from the quiz database
+
+'SELECT quiz_stats FROM Quizzes
+WHERE quiz_ID = $quiz_ID';
+
+Update the statistics entry for a quiz
+
+'UPDATE Quizzes
+SET quiz_stats = $quiz_stats
+WHERE quiz_ID = $quiz_ID';
+
+Update the number of questions in a chapter
+
+'UPDATE Chapters
+SET question_number = $question_number
+WHERE  chapter_ID = $chapter_ID';
+
+Insert a question into the database
+
+'INSERT INTO Questions
+VALUES ($question_ID, $question_text, $number_choices, $chapter_ID)';
+
+Insert an answer into the database
+
+'INSERT INTO Answers
+VALUES ($answer_ID, $answer_text, $fixed_slot, $is_correct, $question_ID)';
+
+Insert a quiz into the database
+
+'INSERT INTO Quizzes
+VALUES ($quiz_ID, $quiz_param, $quiz_stats)';
+
+Insert a chapter into the database
+
+'INSERT INTO Chapters
+VALUES ($chapter_ID, $number_questions)';
+
+Delete a question from the database (should also delete corresponding Answers)
+
+'DELETE FROM TABLE Questions
+WHERE question_ID = $question_ID';
+
+Delete an answer from the database (call immediately after deleting from Questions)
+
+'DELETE FROM TABLE Answers
+WHERE question_ID = $question_ID';
+
+Delete a quiz from the database (likely won't be called)
+
+'DELETE FROM TABLE Quizzes
+WHERE quiz_ID = $quiz_ID';
