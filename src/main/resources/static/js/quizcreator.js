@@ -24,18 +24,6 @@ function sendResults()
     });
 }
 
-// Get the current stats from the server
-function getStats()
-{
-    $.ajax({
-        url: "/quizgen/rest/quiz/",
-        type: 'get',
-        data: {questionNo: 2},
-        success: function( data ) {
-            $("#content").html(data.quizName);
-        }
-    });
-}
 
 // These will be related to the data variable eventually
 var questions = ["Question Text #1", "Question Text #2", "Question Text #3", "Question Text #4", "Question Text #5"]
@@ -55,7 +43,3 @@ for (var i=0; i<questions.length; i++) {
         quiz_para.append("<label><input class=\"uk-radio\" type=\"radio\" name=\"radio" + i + "\">  " + (j+1) + ") " + answers[j] + "</label><br>");
     }
 }
-
-
-
-// CAPTURE RESPONSES HERE
