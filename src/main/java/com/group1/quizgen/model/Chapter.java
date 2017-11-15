@@ -8,18 +8,17 @@ import java.util.List;
 public class Chapter {
     @Id
     @Column(name = "chapter_ID")
-    private String chapterID;
+    private Integer chapterID;
     @Column(name = "number_questions")
     private Integer numQuestions;
 
-    public String getChapterID() {
+    public Integer getChapterID() {
         return chapterID;
     }
 
-    public void setChapterID(String chapterID) {
+    public void setChapterID(Integer chapterID) {
         this.chapterID = chapterID;
     }
-
     public Integer getNumQuestions() {
         return numQuestions;
     }

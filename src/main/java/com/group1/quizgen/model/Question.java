@@ -1,5 +1,7 @@
 package com.group1.quizgen.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
 public class Question {
     @Id
     @Column(name="question_ID")
-    private String questionID;
+    private Integer questionID;
 
     @Column(name="question_text")
     private String questionText;
@@ -31,12 +33,20 @@ public class Question {
         this.options = options;
     }
 
-    public String getQuestionID() {
+    public Integer getQuestionID() {
         return questionID;
     }
 
-    public void setQuestionID(String questionID) {
+    public void setQuestionID(Integer questionID) {
         this.questionID = questionID;
+    }
+
+    public Chapter getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
     }
 
     public String getQuestionText() {

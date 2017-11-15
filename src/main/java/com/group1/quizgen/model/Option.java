@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Option {
     @Id
     @Column(name="answer_ID")
-    private String answerID;
+    private Integer answerID;
 
     @Column(name="answer_text")
     private String answerText;
@@ -30,11 +30,11 @@ public class Option {
         this.question = question;
     }
 
-    public String getAnswerID() {
+    public Integer getAnswerID() {
         return answerID;
     }
 
-    public void setAnswerID(String answerID) {
+    public void setAnswerID(Integer answerID) {
         this.answerID = answerID;
     }
 

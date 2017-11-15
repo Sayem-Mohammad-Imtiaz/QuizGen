@@ -7,7 +7,9 @@ import com.group1.quizgen.model.Quiz;
 import org.springframework.stereotype.Repository;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Repository
 public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
@@ -18,18 +20,42 @@ public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
     }
 
     @Override
-    public Chapter findChapterById(String chapterID) {
+    public Chapter findChapterById(Integer chapterID) {
         return entityManager.find(Chapter.class, chapterID);
     }
 
     @Override
-    public Question findQuestionById(String questionID) {
+    public Question findQuestionById(Integer questionID) {
         return entityManager.find(Question.class, questionID);
     }
 
-    public List<Question> getRandomQuestions(int numQuestions)
+    public Question findNthQuestionOfChapter(Integer chapterID, Integer n) {
+        List<Question> l=entityManager.createQuery("select q from Question q where q.chapter.chapterID=:chapterID")
+                .setParameter("chapterID", chapterID).setFirstResult(n).setMaxResults(1).getResultList();
+        if(l==null || l.isEmpty())
+            throw new RuntimeException("Invalid question requested");
+        return l.get(0);
+    }
+
+    @Override
+    public List<Question> generateRandomQuestionSet(List<Integer> chapterIds, int numQuestions)
     {
-        throw new NotImplementedException();
+        List<Question> result=new ArrayList<>();
+
+        for(Integer cId : chapterIds) {
+
+            Chapter chapter=findChapterById(cId);
+
+            if(chapter.getNumQuestions()<numQuestions)
+                throw new RuntimeException("Chapter "+cId+" has fewer questions than requested");
+
+            Integer randomSequence=new Random().nextInt(numQuestions)+1;
+            Question q=findNthQuestionOfChapter(cId,randomSequence);
+
+            result.add(q);
+        }
+
+        return result;
     }
 
     @Override
