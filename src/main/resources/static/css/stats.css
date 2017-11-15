@@ -1,14 +1,17 @@
 .stats-bar-green {
-    color: #73E556;
+    height: 10px;
+    background-color: #73E556;
     opacity: .5
 }
 
 .stats-bar-red {
-    color: #F23F3F;
-    opacity: .5
+    height: 10px;
+    background-color: #F23F3F;
+    opacity: .4
 }
 
 .stats-bar-grey {
-    color: #000000;
+    height: 10px;
+    background-color: #000001;
     opacity: .25
 }
