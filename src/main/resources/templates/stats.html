@@ -12,6 +12,28 @@
 		<script src="../static/js/uikit.min.js"></script>
 		<script src="../static/js/uikit-icons.min.js"></script>
 
+        <div class="uk-child-width-1-1 uk-grid-small uk-grid-match" uk-grid>
+            <h3> The length of each bar represents the percentage for each choice. The colors are represented as follows: </h3>
+            <table>
+                <tr>
+                    <td><div class="stats-bar-green" style="width:100px"></div></td>
+                    <td> Green Bar: </td>
+                    <td> Correct Answer </td>
+                </tr>
+                <tr>
+                    <td><div class="stats-bar-red" style="width:100px"></div></td>
+                    <td> Red Bars: </td>
+                    <td> Inorrect Answer </td>
+                </tr>
+                <tr>
+                    <td><div class="stats-bar-grey" style="width:100px"></div></td>
+                    <td> Grey Bar: </td>
+                    <td> Question not answered </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+
         <div id="stats" class="uk-child-width-1-1 uk-grid-small uk-grid-match" uk-grid></div>
 
 		<script src="../static/js/statscreator.js"></script>
