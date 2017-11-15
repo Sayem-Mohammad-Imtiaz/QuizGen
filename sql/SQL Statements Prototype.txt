@@ -1,23 +1,23 @@
 CREATE TABLE Chapters (
-	chapter_ID varchar(3) NOT NULL,
+	chapter_ID int NOT NULL,
 	number_questions int,
 	PRIMARY KEY (chapter_ID)
 );
 
 CREATE TABLE Questions (
-	question_ID varchar(6),
+	question_ID int NOT NULL AUTO_INCREMENT,
 	question_text varchar(512),
 	number_choices int,
-	chapter_ID varchar(3),
+	chapter_ID int,
 	PRIMARY KEY (question_ID)
 );
 
 CREATE TABLE Answers (
-	answer_ID varchar(8),
+	answer_ID int NOT NULL AUTO_INCREMENT,
 	answer_text varchar(512),
 	fixed_slot int,
 	is_correct int,
-	question_ID varchar(6),
+	question_ID int,
 	PRIMARY KEY (answer_ID)
 );
 CREATE TABLE Quizzes (
