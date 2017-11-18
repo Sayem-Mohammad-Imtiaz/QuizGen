@@ -34,7 +34,7 @@ public class QuizTest extends QuizGenApplicationTests {
 
         vars.put("quizParam", qp);
 
-        assertThat(this.testRestTemplate.getForEntity("http://localhost:" + this.localServerPort
-                + "/quizgen/rest/quiz/",Question[].class, vars).getBody()).isNotNull();
+        assertThat(this.testRestTemplate.postForEntity("http://localhost:" + this.localServerPort
+                + "/quizgen/rest/quiz/",qp, Question[].class).getBody()).isNotNull();
     }
 }

@@ -17,18 +17,20 @@ public class QuizController {
     @Autowired
     private QuizDao quizDao;
 
-    @GetMapping("/")
-    public ResponseEntity<Object> generateQuiz(@RequestBody QuizParam quizParam)
+    @PostMapping("/")
+    public List<Question> generateQuiz(@RequestBody QuizParam quizParam)
     {
         try
         {
-            return new ResponseEntity<>(quizDao.generateRandomQuestionSet(quizParam.getChapterIds(), quizParam.getNumQuestions()), HttpStatus.OK);
+            return quizDao.generateRandomQuestionSet(quizParam.getChapterIds(), quizParam.getNumQuestions());
+            //return new ResponseEntity<>(quizDao.generateRandomQuestionSet(quizParam.getChapterIds(), quizParam.getNumQuestions()), HttpStatus.OK);
         }
         catch(Exception ex)
         {
             ex.printStackTrace();
         }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        return null;
+        //return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("chapter")

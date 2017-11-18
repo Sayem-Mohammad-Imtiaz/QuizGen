@@ -18,18 +18,6 @@ public class Option {
     @Column(name = "is_correct")
     private boolean isCorrect;
 
-    @ManyToOne
-    @JoinColumn(name = "question_ID")
-    private Question question;
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
     public Integer getAnswerID() {
         return answerID;
     }

@@ -18,7 +18,8 @@ public class Question {
     @Column(name = "number_choices")
     private Integer numberChoices;
 
-    @OneToMany(mappedBy="question")
+    @OneToMany
+    @JoinColumn(name = "question_ID")
     private List<Option> options;
 
     @ManyToOne

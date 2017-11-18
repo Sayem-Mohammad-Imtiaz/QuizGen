@@ -4,6 +4,7 @@ import com.group1.quizgen.dao.QuizDao;
 import com.group1.quizgen.model.Chapter;
 import com.group1.quizgen.model.Question;
 import com.group1.quizgen.model.Quiz;
+import com.group1.quizgen.util.Constants;
 import org.springframework.stereotype.Repository;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -41,6 +42,7 @@ public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
     public List<Question> generateRandomQuestionSet(List<Integer> chapterIds, int numQuestions)
     {
         List<Question> result=new ArrayList<>();
+        boolean taken[]=new boolean[Constants.MAX_QUESTIONS_PER_CHAPTER];
 
         for(Integer cId : chapterIds) {
 
@@ -48,11 +50,17 @@ public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
 
             if(chapter.getNumQuestions()<numQuestions)
                 throw new RuntimeException("Chapter "+cId+" has fewer questions than requested");
+            for(int i=0;i<numQuestions;i++) {
+                Integer randomSequence;
+                do {
+                    randomSequence = new Random().nextInt(chapter.getNumQuestions());
+                } while (taken[randomSequence] == true);
+                taken[randomSequence] = true;
 
-            Integer randomSequence=new Random().nextInt(numQuestions)+1;
-            Question q=findNthQuestionOfChapter(cId,randomSequence);
+                Question q = findNthQuestionOfChapter(cId, randomSequence);
 
-            result.add(q);
+                result.add(q);
+            }
         }
 
         return result;
