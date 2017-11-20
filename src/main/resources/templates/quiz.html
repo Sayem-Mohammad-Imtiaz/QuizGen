@@ -7,29 +7,46 @@
     <script th:src="@{/js/uikit-icons.min.js}" src="../static/js/uikit-icons.min.js"></script>
     <script th:src="@{/js/quizcreator.js}" src="../static/js/quizcreator.js"></script>
 
+    <script type="text/javascript">
+        function optionSelected(ref, updref, ansid)
+        {
+            if ($(ref).is(':checked'))
+            {
+                $("input[name='"+updref+"']").val(ansid);
+            }
+        }
+    </script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/uikit.min.css}" href="../static/css/uikit.min.css"/>
 </head>
 <body>
 
-
+<form th:action="@{/quiz/verify/}" method="post" th:object="${quizAnswers}">
 <div id="quiz" class="uk-child-width-1-1 uk-grid-small uk-grid-match" uk-grid="uk-grid">
-    <div th:each="q, s: ${questionSet}" th:inline="text" th:id="'quiz-question'+${s.index}" class="uk-card uk-card-default uk-card-body uk-first-column">
-        <h3 class="uk-card-title">  [[${q.questionText}]]</h3>
-        <p th:id="'quiz-para'+${s.index}">
-            <label>
-                <th:block th:each="o,so: ${q.options}">
-                    <input class="uk-radio" type="radio"
-                       th:name="'radio'+${s.index}">[[${so.count}]]) [[${o.answerText}]]</input>
-                 <br/>
-                </th:block>
-            </label>
-        </p>
-    </div>
+
+        <div th:each="q, s: ${questionSet}" th:inline="text" th:id="'quiz-question'+${s.index}"
+             class="uk-card uk-card-default uk-card-body uk-first-column">
+            <h3 class="uk-card-title"> [[${q.questionText}]]</h3>
+
+            <input type="hidden" th:name="'quizAnswers['+${s.index}+'].questionID'" th:value="${q.questionID}"/>
+            <input type="hidden" th:name="'quizAnswers['+${s.index}+'].answerID'" />
+
+            <p th:id="'quiz-para'+${s.index}">
+                <label>
+                    <th:block th:each="o,so: ${q.options}">
+                        <input class="uk-radio" type="radio"
+                               th:onclick="'optionSelected(this, \'quizAnswers['+${s.index}+'].answerID\', '+${o.answerID}+')'"
+                               th:name="'radio'+${s.index}">[[${so.count}]]) [[${o.answerText}]]</input>
+                        <br/>
+                    </th:block>
+                </label>
+            </p>
+        </div>
 </div>
 
 <div class="uk-width-1-1 uk-text-center">
-    <button class="uk-button uk-button-primary">Submit</button>
+    <button type="submit" class="uk-button uk-button-primary">Submit</button>
 </div>
+</form>
 
 
 </body>
