@@ -1,19 +1,29 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>QuizGen</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/quizcreator.js"></script>
+    <script th:src="@{js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{js/quizcreator.js}"></script>
     <script type="text/javascript">
         $(document).ready(function()
         {
-            getQuiz();
+            getChapters();
         });
     </script>
 </head>
 <body>
 <h1><a href="/quizgen/site/" >QuizGen</a></h1>
-<div id="content"></div>
+<form th:action="@{/quiz/}" method="post" th:object="${quizParam}">
+    <select id="chapters" th:field="*{chapterIds}" multiple="multiple">
+    </select>
+    <div>
+        <input type="number" th:field="*{numQuestions}"/>
+    </div>
+
+    <div>
+        <input type="submit" value="Submit"/>
+    </div>
+</form>
 </body>
 </html>

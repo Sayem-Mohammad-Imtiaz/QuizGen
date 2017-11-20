@@ -6,7 +6,6 @@ import com.group1.quizgen.model.Question;
 import com.group1.quizgen.model.Quiz;
 import com.group1.quizgen.util.Constants;
 import org.springframework.stereotype.Repository;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;

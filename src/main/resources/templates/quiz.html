@@ -1,23 +1,36 @@
 <!DOCTYPE html>
-<html lang="en-us">
-	<head>
-		<title> QuizGen Quiz Generator </title>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title> QuizGen Quiz Generator </title>
+    <script th:src="@{/js/jquery-3.2.1.min.js}" src="../static/js/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/js/uikit.min.js}" src="../static/js/uikit.min.js"></script>
+    <script th:src="@{/js/uikit-icons.min.js}" src="../static/js/uikit-icons.min.js"></script>
+    <script th:src="@{/js/quizcreator.js}" src="../static/js/quizcreator.js"></script>
 
-        <link rel="stylesheet" type="text/css" href="../static/css/uikit.min.css" />
-	</head>
-	<body>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/uikit.min.css}" href="../static/css/uikit.min.css"/>
+</head>
+<body>
 
-		<script src="../static/js/jquery-3.2.1.min.js"></script>
-		<script src="../static/js/uikit.min.js"></script>
-		<script src="../static/js/uikit-icons.min.js"></script>
 
-        <div id="quiz" class="uk-child-width-1-1 uk-grid-small uk-grid-match" uk-grid></div>
+<div id="quiz" class="uk-child-width-1-1 uk-grid-small uk-grid-match" uk-grid="uk-grid">
+    <div th:each="q, s: ${questionSet}" th:inline="text" th:id="'quiz-question'+${s.index}" class="uk-card uk-card-default uk-card-body uk-first-column">
+        <h3 class="uk-card-title">  [[${q.questionText}]]</h3>
+        <p th:id="'quiz-para'+${s.index}">
+            <label>
+                <th:block th:each="o,so: ${q.options}">
+                    <input class="uk-radio" type="radio"
+                       th:name="'radio'+${s.index}">[[${so.count}]]) [[${o.answerText}]]</input>
+                 <br/>
+                </th:block>
+            </label>
+        </p>
+    </div>
+</div>
 
-		<div class="uk-width-1-1 uk-text-center">
-			<button class="uk-button uk-button-primary">Submit</button>
-		</div>
+<div class="uk-width-1-1 uk-text-center">
+    <button class="uk-button uk-button-primary">Submit</button>
+</div>
 
-		<script src="../static/js/quizcreator.js"></script>
 
-	</body>
+</body>
 </html>
