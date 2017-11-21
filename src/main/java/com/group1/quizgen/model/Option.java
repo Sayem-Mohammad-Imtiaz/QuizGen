@@ -1,10 +1,11 @@
 package com.group1.quizgen.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Answers")
-public class Option {
+public class Option implements Serializable {
     @Id
     @Column(name="answer_ID")
     private Integer answerID;

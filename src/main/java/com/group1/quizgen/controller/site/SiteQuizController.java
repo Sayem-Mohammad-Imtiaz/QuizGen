@@ -1,10 +1,7 @@
 package com.group1.quizgen.controller.site;
 
 import com.group1.quizgen.dao.QuizDao;
-import com.group1.quizgen.model.Question;
-import com.group1.quizgen.model.QuizAnswer;
-import com.group1.quizgen.model.QuizAnswers;
-import com.group1.quizgen.model.QuizParam;
+import com.group1.quizgen.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +19,15 @@ public class SiteQuizController {
     private QuizDao quizDao;
 
     @PostMapping("/")
-    public String generateQuiz(@ModelAttribute QuizParam quizParam, @ModelAttribute QuizAnswers quizAnswers,
+    public String generateQuiz(@ModelAttribute QuizParam quizParam, @ModelAttribute Quiz quiz,
                                Model model)
     {
         try
         {
-            model.addAttribute("questionSet",
+            quiz.setQuestionSet(
                     quizDao.generateRandomQuestionSet(quizParam.getChapterIds(), quizParam.getNumQuestions()));
-            model.addAttribute("quizAnswers", quizAnswers);
+            quiz.setQuizParam(quiz.computeQuizParam(quizParam));
+            model.addAttribute("quiz", quiz);
         }
         catch(Exception ex)
         {
@@ -40,12 +38,12 @@ public class SiteQuizController {
     }
 
     @PostMapping("verify")
-    public String verifyAnswer(@ModelAttribute QuizAnswers quizAnswers,
+    public String verifyAnswer(@ModelAttribute Quiz quiz,
                                Model model)
     {
         try
         {
-            model.addAttribute("quizAnswers", quizAnswers);
+            quizDao.addQuiz(quiz);
         }
         catch(Exception ex)
         {

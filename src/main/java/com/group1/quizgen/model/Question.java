@@ -3,11 +3,12 @@ package com.group1.quizgen.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "Questions")
-public class Question {
+public class Question implements Serializable {
     @Id
     @Column(name="question_ID")
     private Integer questionID;

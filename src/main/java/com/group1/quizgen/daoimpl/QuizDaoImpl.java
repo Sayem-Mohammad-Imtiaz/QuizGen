@@ -6,12 +6,14 @@ import com.group1.quizgen.model.Question;
 import com.group1.quizgen.model.Quiz;
 import com.group1.quizgen.util.Constants;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 @Repository
+@Transactional
 public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
 
     @Override
@@ -72,15 +74,8 @@ public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
 
     @Override
     public boolean addQuiz(Quiz quiz) {
+        quiz.populateQuestionByte();
         entityManager.persist(quiz);
-        return true;
-    }
-
-    @Override
-    public boolean updateQuiz(Quiz quiz) {
-        Quiz o=findQuizById(quiz.getQuizID());
-        o.setQuizStats(quiz.getQuizStats());
-        entityManager.flush();
         return true;
     }
 
