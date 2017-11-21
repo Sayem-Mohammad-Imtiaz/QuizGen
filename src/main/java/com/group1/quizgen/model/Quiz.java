@@ -19,9 +19,6 @@ public class Quiz {
     @Transient
     private List<Question> questionSet;
 
-    @Transient
-    private List<QuizAnswer> quizAnswers;
-
     @Column(name="questions")
     private byte[] questionsByte;
 
@@ -55,14 +52,6 @@ public class Quiz {
 
     public void setQuestionsByte(byte[] questionsByte) {
         this.questionsByte = questionsByte;
-    }
-
-    public List<QuizAnswer> getQuizAnswers() {
-        return quizAnswers;
-    }
-
-    public void setQuizAnswers(List<QuizAnswer> quizAnswers) {
-        this.quizAnswers = quizAnswers;
     }
 
     public String computeQuizParam(QuizParam quizParam)

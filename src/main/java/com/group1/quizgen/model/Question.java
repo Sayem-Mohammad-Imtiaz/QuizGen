@@ -27,6 +27,39 @@ public class Question implements Serializable {
     @JoinColumn(name = "chapter_ID")
     private Chapter chapter;
 
+    @Column(name="times_taken")
+    private Integer timesTaken;
+
+    @Column(name="times_captured")
+    private Integer timesCaptured;
+
+    @Transient
+    private Integer userAnswerID;
+
+    public Integer getTimesTaken() {
+        return timesTaken;
+    }
+
+    public Integer getUserAnswerID() {
+        return userAnswerID;
+    }
+
+    public void setUserAnswerID(Integer userAnswerID) {
+        this.userAnswerID = userAnswerID;
+    }
+
+    public void setTimesTaken(Integer timesTaken) {
+        this.timesTaken = timesTaken;
+    }
+
+    public Integer getTimesCaptured() {
+        return timesCaptured;
+    }
+
+    public void setTimesCaptured(Integer timesCaptured) {
+        this.timesCaptured = timesCaptured;
+    }
+
     public List<Option> getOptions() {
         return options;
     }

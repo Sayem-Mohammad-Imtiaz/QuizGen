@@ -12,7 +12,7 @@ public interface QuizDao {
     Chapter findChapterById(Integer chapterID);
     Question findQuestionById(Integer questionID);
     Quiz findQuizById(String quizID);
-    boolean addQuiz(Quiz quiz);
+    Quiz addQuiz(Quiz quiz);
     boolean doesQuizExist(String quizParam);
     List<Question> generateRandomQuestionSet(List<Integer> chapterIds, int numQuestions);
 }

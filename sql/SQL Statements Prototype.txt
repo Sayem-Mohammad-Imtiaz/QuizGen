@@ -27,20 +27,6 @@ CREATE TABLE Quizzes (
 	PRIMARY KEY (quiz_ID)
 );
 
-/* below tables are not necessary really */
-	
-CREATE TABLE Chapters_Questions (
-	chapter_ID varchar(6),
-	question_ID varchar(3),
-	PRIMARY KEY (chapter_ID, question_ID)
-	FOREIGN KEY (chapter_ID, question_ID) REFERENCES (Chapters, Questions)
-);
-
-		
-
-CREATE TABLE Questions_Answers (
-	question_ID varchar(6),
-	answer_ID varchar(8),
-	PRIMARY KEY (question_ID, answer_ID)
-	FOREIGN KEY (question_ID, answer_ID) REFERENCES (Questions, Answers)
-);
+alter table questions add times_taken int; 
+alter table questions add times_captured int;
+alter table answers modify is_correct int(1); 

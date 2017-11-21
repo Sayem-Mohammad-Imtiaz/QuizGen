@@ -2,6 +2,7 @@ package com.group1.quizgen.daoimpl;
 
 import com.group1.quizgen.dao.QuizDao;
 import com.group1.quizgen.model.Chapter;
+import com.group1.quizgen.model.Option;
 import com.group1.quizgen.model.Question;
 import com.group1.quizgen.model.Quiz;
 import com.group1.quizgen.util.Constants;
@@ -15,6 +16,12 @@ import java.util.Random;
 @Repository
 @Transactional
 public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
+
+    private List<Option> findOptionsByQuestionId(Integer questionId) {
+        return entityManager.createQuery("select c from Option c where c.questionID=:q").
+                setParameter("q", questionId).
+                getResultList();
+    }
 
     @Override
     public List<Chapter> findAllChapter() {
@@ -37,6 +44,20 @@ public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
         if(l==null || l.isEmpty())
             throw new RuntimeException("Invalid question requested");
         return l.get(0);
+    }
+
+    private Question updateQuestionStats(Integer questionID, boolean captured)
+    {
+        Question q=findQuestionById(questionID);
+        if(q.getTimesTaken()==null)
+            q.setTimesTaken(0);
+        if(q.getTimesCaptured()==null)
+            q.setTimesCaptured(0);
+        if(captured)
+            q.setTimesCaptured(q.getTimesCaptured()+1);
+        q.setTimesTaken(q.getTimesTaken()+1);
+        entityManager.merge(q);
+        return q;
     }
 
     @Override
@@ -73,10 +94,27 @@ public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
     }
 
     @Override
-    public boolean addQuiz(Quiz quiz) {
+    public Quiz addQuiz(Quiz quiz) {
         quiz.populateQuestionByte();
         entityManager.persist(quiz);
-        return true;
+
+        List<Question> tmpQ=new ArrayList<>();
+        for(Question question : quiz.getQuestionSet())
+        {
+            boolean captured=false;
+            for(Option option : findOptionsByQuestionId(question.getQuestionID()))
+            {
+                if(option.getIsCorrect()&&option.getAnswerID()==question.getUserAnswerID())
+                {
+                    captured=true;
+                    break;
+                }
+
+            }
+            tmpQ.add(updateQuestionStats(question.getQuestionID(), captured));
+        }
+        quiz.setQuestionSet(tmpQ);
+        return quiz;
     }
 
     @Override

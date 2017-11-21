@@ -1,5 +1,7 @@
 package com.group1.quizgen.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,8 +18,20 @@ public class Option implements Serializable {
     @Column(name = "fixed_slot")
     private Integer fixedSlot;
 
-    @Column(name = "is_correct")
+    @Column(name = "is_correct", nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isCorrect;
+
+    @Column(name="question_ID")
+    private Integer questionID;
+
+    public Integer getQuestionID() {
+        return questionID;
+    }
+
+    public void setQuestionID(Integer questionID) {
+        this.questionID = questionID;
+    }
 
     public Integer getAnswerID() {
         return answerID;
@@ -43,11 +57,11 @@ public class Option implements Serializable {
         this.fixedSlot = fixedSlot;
     }
 
-    public boolean isCorrect() {
+    public boolean getIsCorrect() {
         return isCorrect;
     }
 
-    public void setCorrect(boolean correct) {
+    public void setIsCorrect(boolean correct) {
         isCorrect = correct;
     }
 }
