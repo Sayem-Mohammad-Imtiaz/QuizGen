@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<form th:action="@{/quiz/verify/}" method="post" th:object="${quiz}">
+<form th:action="@{/quiz/result/}" method="post" th:object="${quiz}">
 <div id="quiz" class="uk-child-width-1-1 uk-grid-small uk-grid-match" uk-grid="uk-grid">
 
     <input type="hidden" th:field="*{quizParam}"/>

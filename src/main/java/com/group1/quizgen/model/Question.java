@@ -36,6 +36,17 @@ public class Question implements Serializable {
     @Transient
     private Integer userAnswerID;
 
+    @Transient
+    private double successRate;
+
+    public double getSuccessRate() {
+        return successRate;
+    }
+
+    public void setSuccessRate(double successRate) {
+        this.successRate = successRate;
+    }
+
     public Integer getTimesTaken() {
         return timesTaken;
     }

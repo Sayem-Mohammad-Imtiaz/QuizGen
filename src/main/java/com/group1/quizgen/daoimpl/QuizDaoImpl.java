@@ -111,7 +111,10 @@ public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
                 }
 
             }
-            tmpQ.add(updateQuestionStats(question.getQuestionID(), captured));
+            Question qq=updateQuestionStats(question.getQuestionID(), captured);
+            qq.setUserAnswerID(question.getUserAnswerID());
+            qq.setSuccessRate(100.0 *((double)qq.getTimesCaptured()/(double)qq.getTimesTaken()));
+            tmpQ.add(qq);
         }
         quiz.setQuestionSet(tmpQ);
         return quiz;

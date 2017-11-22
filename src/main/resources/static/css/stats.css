@@ -15,3 +15,26 @@
     background-color: #000001;
     opacity: .25
 }
+.stats-correct-text
+{
+    color: #73E556;
+}
+.stats-incorrect-text
+ {
+     color: #F23F3F;
+ }
+.stats-normal-text
+{
+    color: #444444;
+}
+a {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+ a:hover{
+    text-decoration: none;
+}

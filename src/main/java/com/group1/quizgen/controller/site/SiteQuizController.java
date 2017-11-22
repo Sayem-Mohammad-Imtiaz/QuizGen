@@ -37,19 +37,20 @@ public class SiteQuizController {
         return "quiz";
     }
 
-    @PostMapping("verify")
+    @PostMapping("result")
     public String verifyAnswer(@ModelAttribute Quiz quiz,
                                Model model)
     {
         try
         {
-            quizDao.addQuiz(quiz);
+            quiz=quizDao.addQuiz(quiz);
+            model.addAttribute("quiz",quiz);
         }
         catch(Exception ex)
         {
             ex.printStackTrace();
             model.addAttribute("errorMessage", ex.getMessage());
         }
-        return "quiz";
+        return "stats";
     }
 }
