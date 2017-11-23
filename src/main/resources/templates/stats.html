@@ -9,68 +9,89 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/uikit.min.css}" href="../static/css/uikit.min.css"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/stats.css}" href="../static/css/stats.css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" href="../static/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}"
+          href="../static/font-awesome-4.7.0/css/font-awesome.min.css"/>
 </head>
 <body>
+<div class="uk-section uk-section-default uk-text-left" style="margin-bottom: 0;padding-bottom: 0;padding-top:0;">
+    <h2 class="uk-heading-bullet" style="margin-left:20px;">Result</h2>
+</div>
 
-<div id="stats" class="uk-child-width-1-1 uk-grid-small uk-grid-match" uk-grid="uk-grid">
-    <div th:each="q, s: ${quiz.questionSet}" th:inline="text" th:id="'quiz-question'+${s.index}"
-         class="uk-card uk-card-default uk-card-body uk-first-column">
-        <h3 class="uk-card-title"> [[${q.questionText}]]</h3>
-        <p></p>
-        <table th:id="'quiz-para'+${s.index}">
-            <th:block th:each="o,so: ${q.options}">
-                <tr th:id="'quiz'+${s.index}+'-row'+${so.index}">
-                    <td th:class="${o.isCorrect}? stats-correct-text:''" style="clear:all;"
-                        th:classappend="${o.isCorrect==false and o.answerID==q.userAnswerID}? stats-incorrect-text:''"
-                    >
-                        <input class="uk-radio" type="radio"
-                               onclick="return false;"
-                               th:checked="${o.answerID==q.userAnswerID}"
-                               th:name="'radio'+${s.index}">[[${so.count}]]) [[${o.answerText}]]</input>
+<div class="uk-section uk-section-default" style="margin-top: 0;">
+<div class="uk-container">
+    <div id="stats" class="uk-child-width-1-1 uk-grid-small uk-grid-match" uk-grid="uk-grid">
+        <div th:each="q, s: ${quiz.questionSet}" th:inline="text" th:id="'quiz-question'+${s.index}"
+             class="uk-card uk-card-default uk-card-body uk-first-column">
+            <h3 class="uk-card-title"> [[${q.questionText}]]</h3>
+            <p></p>
+            <table th:id="'quiz-para'+${s.index}">
+                <th:block th:each="o,so: ${q.options}">
+                    <tr th:id="'quiz'+${s.index}+'-row'+${so.index}">
+                        <td th:class="${o.isCorrect}? stats-correct-text:''" style="clear:all;"
+                            th:classappend="${o.isCorrect==false and o.answerID==q.userAnswerID}? stats-incorrect-text:''"
+                        >
+                            <input class="uk-radio" type="radio"
+                                   onclick="return false;"
+                                   th:checked="${o.answerID==q.userAnswerID}"
+                                   th:name="'radio'+${s.index}">[[${so.count}]]) [[${o.answerText}]]</input>
 
-                        <th:block th:if="${so.index==0}">
-                            <div style="position:relative; height: 100%;">
-                                <div style="position:absolute; bottom:0; right:0;">
+                            <th:block th:if="${so.index==0}">
+                                <div style="position:relative; height: 100%;">
+                                    <div style="position:absolute; bottom:0; right:0;">
 
-                                    <table>
-                                        <tr>
-                                            <td class="" style="color: black;font-weight: bold;width:150px;text-align: right;">Times Attempted:</td>
-                                            <td style="color: black;text-align: right;width:80px;font-weight: bold;">[[${q.timesTaken}]]</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="" style="color: black;font-weight: bold;width:150px;text-align: right;">Times Captured:</td>
-                                            <td class="stats-correct-text" style="text-align: right;width:80px;font-weight: bold;">[[${q.timesCaptured}]]</td>
-                                        </tr>
-                                        <tr>
-                                            <td  style="color: black;font-weight: bold;width:150px;text-align: right;">Success Rate:</td>
-                                            <td class="stats-correct-text" style="text-align: right;width:80px;font-weight: bold;">
-                                                [[${#numbers.formatDecimal(q.successRate, 1, 2)}]]%
-                                                <!--<div th:if="${q.timesCaptured!=0}" class="stats-bar-green"-->
-                                                     <!--th:style="'width:'+${result}+'px;min-height: 25px;text-align:center;'">-->
+                                        <table>
+                                            <tr>
+                                                <td class=""
+                                                    style="color: black;font-weight: bold;width:150px;text-align: right;">
+                                                    Times Attempted:
+                                                </td>
+                                                <td style="color: black;text-align: right;width:80px;font-weight: bold;">
+                                                    [[${q.timesTaken}]]
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class=""
+                                                    style="color: black;font-weight: bold;width:150px;text-align: right;">
+                                                    Times Captured:
+                                                </td>
+                                                <td class="stats-correct-text"
+                                                    style="text-align: right;width:80px;font-weight: bold;">
+                                                    [[${q.timesCaptured}]]
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: black;font-weight: bold;width:150px;text-align: right;">
+                                                    Success Rate:
+                                                </td>
+                                                <td class="stats-correct-text"
+                                                    style="text-align: right;width:80px;font-weight: bold;">
+                                                    [[${#numbers.formatDecimal(q.successRate, 1, 2)}]]%
+                                                    <!--<div th:if="${q.timesCaptured!=0}" class="stats-bar-green"-->
+                                                    <!--th:style="'width:'+${result}+'px;min-height: 25px;text-align:center;'">-->
 
-                                                <!--</div>-->
-                                                <!--<div th:if="${q.timesCaptured==0}" class="stats-bar-red"-->
-                                                     <!--style="width:100px;min-height: 25px;text-align:center;">-->
+                                                    <!--</div>-->
+                                                    <!--<div th:if="${q.timesCaptured==0}" class="stats-bar-red"-->
+                                                    <!--style="width:100px;min-height: 25px;text-align:center;">-->
                                                     <!--0%-->
-                                                <!--</div>-->
-                                            </td>
-                                        </tr>
-                                    </table>
+                                                    <!--</div>-->
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                        </th:block>
-                    </td>
-                </tr>
-            </th:block>
-        </table>
+                            </th:block>
+                        </td>
+                    </tr>
+                </th:block>
+            </table>
+        </div>
+    </div>
+
+    <div class="uk-width-1-1 uk-text-left" style="font-size:30px">
+        <a th:href="@{/}" class="uk-button uk-button-link" style="font-size: 17px;">
+            <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Take Test Again!</a>
     </div>
 </div>
-
-<div class="uk-width-1-1 uk-text-left" style="font-size:30px">
-    <a th:href="@{/}" class="" style="font-size: 17px;">
-        <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Take Test Again!</a>
 </div>
-
 </body>
 </html>
