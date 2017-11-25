@@ -5,7 +5,14 @@ import java.util.List;
 public class QuizParam {
     private List<Integer> chapterIds;
     private Integer numQuestions;
+    private Integer quizNum;
 
+    public Integer getQuizNum() {
+        return quizNum;
+    }
+    public void setQuizNum(Integer quizNum) {
+        this.quizNum = quizNum;
+    }
     public List<Integer> getChapterIds() {
         return chapterIds;
     }

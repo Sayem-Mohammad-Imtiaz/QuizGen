@@ -12,7 +12,8 @@ public interface QuizDao {
     Chapter findChapterById(Integer chapterID);
     Question findQuestionById(Integer questionID);
     Quiz findQuizById(String quizID);
+    List<Question> retrieveQuizQuestions(String quizParam, Integer c);
     Quiz addQuiz(Quiz quiz);
-    boolean doesQuizExist(String quizParam);
+    boolean doesQuizExist(String quizParam, Integer c);
     List<Question> generateRandomQuestionSet(List<Integer> chapterIds, int numQuestions);
 }

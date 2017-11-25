@@ -3,51 +3,110 @@
 <head>
     <title>QuizGen</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <script th:src="@{js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
     <script th:src="@{/js/uikit.min.js}" src="../static/js/uikit.min.js"></script>
     <script th:src="@{/js/uikit-icons.min.js}" src="../static/js/uikit-icons.min.js"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/uikit.min.css}" href="../static/css/uikit.min.css"/>
-    <script th:src="@{js/quizcreator.js}"></script>
+    <script th:src="@{/js/quizcreator.js}"></script>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var errorMsg = /*[[${errorMsg}]]*/ '';
+        /*]]>*/
+    </script>
 
     <script type="text/javascript">
+        /*<![CDATA[*/
         $(document).ready(function () {
+            if(errorMsg!=undefined && errorMsg!='' && errorMsg!=null)
+                UIkit.modal.alert(errorMsg);
             getChapters();
         });
+        /*]]>*/
     </script>
+
+
 </head>
 <body>
 
 <div class="uk-section uk-section-default uk-text-left" style="margin-bottom: 0;padding-bottom: 0;padding-top:0;">
-    <h2 class="uk-heading-bullet" style="margin-left:20px;">Take Quiz</h2>
+    <h2 class="uk-heading-bullet" style="margin-left:20px;">Quiz Home</h2>
 </div>
 
-<div class="uk-section uk-section-default" style="margin-top: 0;">
-    <div class="uk-container">
-        <form class="uk-form-horizontal" th:action="@{/quiz/}" method="post" th:object="${quizParam}"
-              onsubmit="return validateFirstForm(this)">
-            <div>
-                <label class="uk-form-label">Choose Chapter(s)</label>
-                <div class="uk-form-controls">
-                    <select class="uk-select uk-form-width-large" id="chapters" th:field="*{chapterIds}"
-                            multiple="multiple">
-                    </select>
-                </div>
+<div class="uk-section uk-section-default" style="margin-top: 0;padding-top:0;">
+    <ul uk-tab="uk-tab" data-uk-tab="{connect:'#tab-content'}">
+        <li class="uk-active"><a href="#">Take New Quiz</a></li>
+        <li><a href="#">Retake Quiz</a></li>
+    </ul>
+
+    <ul id="tab-content" class="uk-switcher uk-margin">
+        <li>
+            <div class="uk-container">
+                <form id="form0" class="uk-form-horizontal" th:action="@{/quiz/new/}" method="post" th:object="${quizParam}"
+                      onsubmit="return validateFirstForm(0)">
+                    <div>
+                        <label class="uk-form-label">Choose Chapter(s)</label>
+                        <div class="uk-form-controls">
+                            <select class="uk-select uk-form-width-large chapters" th:field="*{chapterIds}"
+                                    multiple="multiple">
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="uk-form-label">Number of Questions</div>
+                        <div class="uk-form-controls uk-form-controls-text">
+                            <input class="uk-input uk-form-width-large numc" type="number" th:field="*{numQuestions}"/>
+                        </div>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div class="uk-form-label"></div>
+                        <div class="uk-form-controls uk-form-width-large">
+                            <input class="uk-align-right uk-button uk-button-secondary uk-form-width-medium"
+                                   type="submit" value="Submit"/>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div>
-                <div class="uk-form-label">Number of Questions</div>
-                <div class="uk-form-controls uk-form-controls-text">
-                    <input class="uk-input uk-form-width-large" type="number" th:field="*{numQuestions}"/>
-                </div>
+        </li>
+
+        <li>
+            <div class="uk-container">
+                <form id="form1" class="uk-form-horizontal" th:action="@{/quiz/retake/}" method="post" th:object="${quizParam}"
+                      onsubmit="return validateFirstForm(1)">
+                    <div>
+                        <label class="uk-form-label">Choose Chapter(s)</label>
+                        <div class="uk-form-controls">
+                            <select class="uk-select uk-form-width-large chapters" th:field="*{chapterIds}"
+                                    multiple="multiple">
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="uk-form-label">Number of Questions</div>
+                        <div class="uk-form-controls uk-form-controls-text">
+                            <input class="uk-input uk-form-width-large numc" type="number" th:field="*{numQuestions}"/>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="uk-form-label">Quiz Number</div>
+                        <div class="uk-form-controls uk-form-controls-text">
+                            <input class="uk-input uk-form-width-large numq" type="number" th:field="*{quizNum}"/>
+                        </div>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div class="uk-form-label"></div>
+                        <div class="uk-form-controls uk-form-width-large">
+                            <input class="uk-align-right uk-button uk-button-secondary uk-form-width-medium"
+                                   type="submit"
+                                   value="Submit"/>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div style="margin-top:10px;">
-                <div class="uk-form-label"></div>
-                <div class="uk-form-controls uk-form-width-large">
-                    <input class="uk-align-right uk-button uk-button-secondary uk-form-width-medium" type="submit"
-                           value="Submit"/>
-                </div>
-            </div>
-        </form>
-    </div>
+        </li>
+    </ul>
+
+
 </div>
 </body>
 </html>

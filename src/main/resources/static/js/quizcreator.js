@@ -5,7 +5,7 @@ function getChapters()
         type: 'get',
         success: function( data ) {
             for(var i=0;i<data.length;i++)
-                $("#chapters").append("<option value='"+data[i].chapterID + "'> Chapter "+data[i].chapterID+"</option>");
+                $(".chapters").append("<option value='"+data[i].chapterID + "'> Chapter "+data[i].chapterID+"</option>");
         }
     });
 }
@@ -50,21 +50,30 @@ function sendResults()
     });
 }
 
-function validateFirstForm(ref)
+function validateFirstForm(type)
 {
 
-    var v=$("option:selected").val();
-    if(v==undefined || v==null ||v=='')
+    var $v=$("#form"+type);
+    var vv=$v.find("option:selected").val();
+    if(vv==undefined || vv==null ||vv=='')
     {
-        $('select').focus();
+       // $('select').focus();
         UIkit.modal.alert("Please choose chapter(s)!");
         return false;
     }
-    v=$("input[type='number']").val();
-    if(v==undefined || v==null ||v=='')
+    vv=$v.find("input.numc").val();
+    if(vv==undefined || vv==null ||vv=='')
     {
-        $('input').focus();
+        //$('input').focus();
         UIkit.modal.alert("Please enter number of questions!");
         return false;
+    }
+    if(type==1) {
+        vv=$v.find("input.numq").val();
+        if (vv == undefined || vv == null || vv == '') {
+            //$('input').focus();
+            UIkit.modal.alert("Please enter quiz number!");
+            return false;
+        }
     }
 }

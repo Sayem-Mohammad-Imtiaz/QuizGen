@@ -3,6 +3,7 @@ package com.group1.quizgen.model;
 import org.springframework.util.SerializationUtils;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,48 @@ public class Quiz {
 
     @Column(name="questions")
     private byte[] questionsByte;
+
+    @Transient
+    private Integer totalCorrect;
+    @Transient
+    private Integer totalWrong;
+    @Transient
+    private Integer totalNA;
+    @Transient
+    private double score;
+
+    public Integer getTotalCorrect() {
+        return totalCorrect;
+    }
+
+    public void setTotalCorrect(Integer totalCorrect) {
+        this.totalCorrect = totalCorrect;
+    }
+
+    public Integer getTotalWrong() {
+        return totalWrong;
+    }
+
+    public void setTotalWrong(Integer totalWrong) {
+        this.totalWrong = totalWrong;
+    }
+
+    public Integer getTotalNA() {
+        return totalNA;
+    }
+
+    public void setTotalNA(Integer totalNA) {
+        this.totalNA = totalNA;
+    }
+
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
 
     public Integer getQuizID() {
         return quizID;
@@ -56,6 +99,7 @@ public class Quiz {
 
     public String computeQuizParam(QuizParam quizParam)
     {
+        Collections.sort(quizParam.getChapterIds());
         String q="";
         for(Integer i : quizParam.getChapterIds())
         {
@@ -75,5 +119,9 @@ public class Quiz {
     {
         if(getQuestionsByte()==null || getQuestionsByte().length==0)
             this.setQuestionsByte(SerializationUtils.serialize(getQuestionSet()));
+    }
+    public List<Question> deserializeQuestionByte()
+    {
+        return (List<Question> ) SerializationUtils.deserialize(getQuestionsByte());
     }
 }

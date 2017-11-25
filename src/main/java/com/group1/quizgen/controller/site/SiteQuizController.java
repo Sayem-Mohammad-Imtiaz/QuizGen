@@ -18,15 +18,16 @@ public class SiteQuizController {
     @Autowired
     private QuizDao quizDao;
 
-    @PostMapping("/")
+    @PostMapping("new")
     public String generateQuiz(@ModelAttribute QuizParam quizParam, @ModelAttribute Quiz quiz,
                                Model model)
     {
+        String returnPage="quiz";
         try
         {
-            quiz.setQuestionSet(
-                    quizDao.generateRandomQuestionSet(quizParam.getChapterIds(), quizParam.getNumQuestions()));
             quiz.setQuizParam(quiz.computeQuizParam(quizParam));
+            quiz.setQuestionSet(
+                        quizDao.generateRandomQuestionSet(quizParam.getChapterIds(), quizParam.getNumQuestions()));
             model.addAttribute("quiz", quiz);
         }
         catch(Exception ex)
@@ -34,8 +35,34 @@ public class SiteQuizController {
             ex.printStackTrace();
             model.addAttribute("errorMessage", ex.getMessage());
         }
-        return "quiz";
+        return returnPage;
     }
+    @PostMapping("retake")
+    public String retakeQuiz(@ModelAttribute QuizParam quizParam, @ModelAttribute Quiz quiz,
+                               Model model)
+    {
+        String returnPage="quiz";
+        try
+        {
+            quiz.setQuizParam(quiz.computeQuizParam(quizParam));
+
+            if(!quizDao.doesQuizExist(quiz.getQuizParam(),quizParam.getQuizNum())) {
+                returnPage = "index";
+                model.addAttribute("errorMsg", "No such quiz has been taken before");
+            }
+            else {
+                quiz.setQuestionSet(quizDao.retrieveQuizQuestions(quiz.computeQuizParam(quizParam), quizParam.getQuizNum()));
+            }
+            model.addAttribute("quiz", quiz);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+            model.addAttribute("errorMessage", ex.getMessage());
+        }
+        return returnPage;
+    }
+
 
     @PostMapping("result")
     public String verifyAnswer(@ModelAttribute Quiz quiz,

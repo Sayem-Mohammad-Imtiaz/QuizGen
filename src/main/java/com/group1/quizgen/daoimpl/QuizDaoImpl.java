@@ -1,10 +1,7 @@
 package com.group1.quizgen.daoimpl;
 
 import com.group1.quizgen.dao.QuizDao;
-import com.group1.quizgen.model.Chapter;
-import com.group1.quizgen.model.Option;
-import com.group1.quizgen.model.Question;
-import com.group1.quizgen.model.Quiz;
+import com.group1.quizgen.model.*;
 import com.group1.quizgen.util.Constants;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -94,11 +91,23 @@ public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
     }
 
     @Override
+    public List<Question> retrieveQuizQuestions(String quizParam, Integer c)
+    {
+        List<Quiz> l=entityManager.createQuery("select q from Quiz q where q.quizParam=:quizParam")
+                .setParameter("quizParam", quizParam).setFirstResult(c-1).setMaxResults(1).getResultList();
+        if(l==null || l.isEmpty())
+            throw new RuntimeException("No such quiz exist");
+        Quiz q= l.get(0);
+        return q.deserializeQuestionByte();
+    }
+    @Override
     public Quiz addQuiz(Quiz quiz) {
         quiz.populateQuestionByte();
         entityManager.persist(quiz);
 
         List<Question> tmpQ=new ArrayList<>();
+        Integer tc=0,tna=0,twa=0;
+
         for(Question question : quiz.getQuestionSet())
         {
             boolean captured=false;
@@ -111,20 +120,32 @@ public class QuizDaoImpl extends BaseDaoImpl implements QuizDao {
                 }
 
             }
+            if(captured)
+                tc++;
+            else if(question.getUserAnswerID()==null)
+                tna++;
+            else
+                twa++;
+
             Question qq=updateQuestionStats(question.getQuestionID(), captured);
             qq.setUserAnswerID(question.getUserAnswerID());
             qq.setSuccessRate(100.0 *((double)qq.getTimesCaptured()/(double)qq.getTimesTaken()));
             tmpQ.add(qq);
         }
+        quiz.setTotalCorrect(tc);
+        quiz.setTotalWrong(twa);
+        quiz.setTotalNA(tna);
+        quiz.setScore(100.0 *((double)tc/((double)tna+(double)twa+(double)tc)));
         quiz.setQuestionSet(tmpQ);
         return quiz;
     }
 
     @Override
-    public boolean doesQuizExist(String quizParam) {
-        String hql = "FROM Quiz as quiz WHERE quiz.quizParam = ?";
+    public boolean doesQuizExist(String quizParam, Integer c) {
+        String hql = "FROM Quiz as quiz WHERE quiz.quizParam = ? order by quiz.quizID";
         int count = entityManager.createQuery(hql).setParameter(1, quizParam)
+                .setFirstResult(c-1).setMaxResults(1)
                 .getResultList().size();
-        return count > 0 ? true : false;
+        return (count!=0);
     }
 }
