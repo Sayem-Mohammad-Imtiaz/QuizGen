@@ -1,4 +1,4 @@
-# QuizGen - **lab group 1***
+# QuizGen - **lab group 1**
 
 
 ## System Requirement(s) 
